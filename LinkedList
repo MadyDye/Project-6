@@ -1,0 +1,110 @@
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
+#include <iostream>
+#include <stdexcept>
+
+template <typename ItemType>
+class LinkedList {
+private:
+    struct Node {
+        ItemType data;
+        Node* next;
+        Node(const ItemType& item) : data(item), next(nullptr) {}
+    };
+
+    Node* head;
+    int size;
+
+    void copyList(const LinkedList<ItemType>& aList) {
+        if (aList.head == nullptr) {
+            head = nullptr;
+            size = 0;
+        } else {
+            head = new Node(aList.head->data);
+            Node* newPtr = head;
+            Node* origPtr = aList.head->next;
+            while (origPtr != nullptr) {
+                newPtr->next = new Node(origPtr->data);
+                newPtr = newPtr->next;
+                origPtr = origPtr->next;
+            }
+            size = aList.size;
+        }
+    }
+
+    void clearList() {
+        while (head != nullptr) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+        }
+        size = 0;
+    }
+
+public:
+    // Default constructor
+    LinkedList() : head(nullptr), size(0) {}
+
+    // Copy constructor
+    LinkedList(const LinkedList<ItemType>& aList) {
+        copyList(aList);
+    }
+
+    // Destructor
+    ~LinkedList() {
+        clearList();
+    }
+
+    // Insert at front
+    bool insertFront(const ItemType& newEntry) {
+        Node* newNode = new Node(newEntry);
+        newNode->next = head;
+        head = newNode;
+        size++;
+        return true;
+    }
+
+    // Remove from front
+    bool removeFront() {
+        if (head == nullptr) return false;
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+        size--;
+        return true;
+    }
+
+    // Get front item
+    ItemType getFront() const {
+        if (head == nullptr) throw std::runtime_error("List is empty");
+        return head->data;
+    }
+
+    // Check if empty
+    bool isEmpty() const {
+        return head == nullptr;
+    }
+
+    // Clear list
+    void clear() {
+        clearList();
+    }
+
+    // Get size
+    int getSize() const {
+        return size;
+    }
+
+    // Print list (for testing)
+    void printList() const {
+        Node* current = head;
+        while (current != nullptr) {
+            std::cout << current->data << " -> ";
+            current = current->next;
+        }
+        std::cout << "NULL\n";
+    }
+};
+
+#endif
