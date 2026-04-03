@@ -1,0 +1,14 @@
+$ g++ testHasA.cpp -o testHasA
+$ ./testHasA
+Front item: 30
+After remove: 20
+
+$ g++ testIsA.cpp -o testIsA
+$ ./testIsA
+Front item: 30
+After remove: 20
+
+$ g++ testAsA.cpp -o testAsA
+$ ./testAsA
+Front item: 30
+After remove: 20
