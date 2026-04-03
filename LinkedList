@@ -1,0 +1,42 @@
+#ifndef FRONTLIST_HASA_H
+#define FRONTLIST_HASA_H
+
+#include "LinkedList.h"
+
+template <typename ItemType>
+class FrontListHasA {
+private:
+    LinkedList<ItemType> list;
+
+public:
+    FrontListHasA() = default;
+    FrontListHasA(const FrontListHasA<ItemType>& other) : list(other.list) {}
+
+    ~FrontListHasA() = default;
+
+    bool insert(const ItemType& newEntry) {
+        return list.insertFront(newEntry);
+    }
+
+    bool remove() {
+        return list.removeFront();
+    }
+
+    ItemType retrieve() const {
+        return list.getFront();
+    }
+
+    bool isEmpty() const {
+        return list.isEmpty();
+    }
+
+    int getSize() const {
+        return list.getSize();
+    }
+
+    void print() const {
+        list.printList();
+    }
+};
+
+#endif
