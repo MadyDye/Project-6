@@ -1,0 +1,39 @@
+#ifndef FRONTLIST_ASA_H
+#define FRONTLIST_ASA_H
+
+#include "LinkedList.h"
+
+template <typename ItemType>
+class FrontListAsA : private LinkedList<ItemType> {
+public:
+    FrontListAsA() = default;
+    FrontListAsA(const FrontListAsA<ItemType>& other) : LinkedList<ItemType>(other) {}
+    ~FrontListAsA() = default;
+
+    // Only expose FrontList operations
+    bool insert(const ItemType& newEntry) {
+        return this->insertFront(newEntry);
+    }
+
+    bool remove() {
+        return this->removeFront();
+    }
+
+    ItemType retrieve() const {
+        return this->getFront();
+    }
+
+    bool isEmpty() const {
+        return this->isEmpty();
+    }
+
+    int getSize() const {
+        return this->getSize();
+    }
+
+    void print() const {
+        this->printList();
+    }
+};
+
+#endif
