@@ -1,0 +1,39 @@
+#ifndef FRONTLIST_ISA_H
+#define FRONTLIST_ISA_H
+
+#include "LinkedList.h"
+
+template <typename ItemType>
+class FrontListIsA : public LinkedList<ItemType> {
+public:
+    FrontListIsA() = default;
+    FrontListIsA(const FrontListIsA<ItemType>& other) : LinkedList<ItemType>(other) {}
+    ~FrontListIsA() = default;
+
+    // FrontList operations
+    bool insert(const ItemType& newEntry) {
+        return this->insertFront(newEntry);
+    }
+
+    bool remove() {
+        return this->removeFront();
+    }
+
+    ItemType retrieve() const {
+        return this->getFront();
+    }
+
+    // Disable other LinkedList methods that could break FrontList
+    bool insert(int position, const ItemType& newEntry) = delete;
+    bool remove(int position) = delete;
+    void replace(int position, const ItemType& newEntry) = delete;
+
+    // Override clear to use only front removal
+    void clear() {
+        while (!this->isEmpty()) {
+            this->removeFront();
+        }
+    }
+};
+
+#endif
